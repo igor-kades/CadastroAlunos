@@ -1,0 +1,10 @@
+﻿@* Carrega o arquivo JavaScript principal da página *@
+<script src="~/Scripts/projeto/exercicio/exercicio.js"></script>
+<script>
+    @* Recebe as URLs que executam os métodos (ações) do controller da página Home *@
+    Europa.Controllers.Exercicio.UrlGetAluno = '@Url.Action("GetAluno", "Exercicio")';
+</script>
+
+<div id="form-aluno">
+    @Html.Partial("_FormularioAluno")
+</div>
