@@ -18,7 +18,7 @@ namespace TreinamentoWeb.Controllers
             var objeto = new Aluno
             {
                 Id = 1,
-                Nome = "Fulano",
+                Nome = "Igor Kades",
                 Cpf = "0000000000000"
             };
 
@@ -32,12 +32,12 @@ namespace TreinamentoWeb.Controllers
 
 
         [HttpGet]
-        public JsonResult GetEntidade(int id)
+        public JsonResult GetAluno(int id)
         {
             // Obtendo a entidade da lista usando LINQ e Lambda
             var aluno = Alunos.FirstOrDefault(x => x.Id == id);
 
-            var alunoHtml = RenderRazorViewToString("~/Views/Home/_FormularioEntidade.cshtml", aluno, false);
+            var alunoHtml = RenderRazorViewToString("~/Views/Exercicio/_FormularioAluno.cshtml", aluno, false);
 
             var json = new JsonResponse
             {
