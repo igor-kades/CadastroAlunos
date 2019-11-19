@@ -1,16 +1,84 @@
 ﻿@model TreinamentoWeb.Models.Aluno
 
-<div class="col-md-24">
-    <form>
+<div class="col">
+    <div class="page-header">
+        <h2>Alunos - </h2>
+    </div>
 
-        <div class="col-md-12">
-            @Html.Label("Nome")
-            @Html.TextBoxFor(x => x.Nome, null, new { @class = "form-control", disabled = "disabled" })
+    <div class="col-md-24">
+        <div class="col-md-8">
+            <button class="btn btn-default" type="submit">
+                <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                Anterior
+            </button>
         </div>
-        <div class="col-md-11 col-md-offset-1">
-            @Html.Label("CPF")
-            @Html.TextBoxFor(x => x.Cpf, null, new { @class = "form-control", disabled = "disabled" })
+        <div class="col-md-5">
+            <button class="btn btn-danger" type="submit">
+                <i class="fa fa-trash-o" aria-hidden="true"></i>
+                Excluir
+            </button>
         </div>
+        <div class="col-md-8">
+            <button class="btn btn-primary" type="submit">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+                Incluir
+            </button>
+        </div>
+        <div class="col-md-3">
+            <button class="btn btn-default pull-right" type="submit">
+                <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                Seguinte
+            </button>
+        </div>
+    </div>
 
-    </form>
+    <div class="col-md-24">
+        &nbsp;
+    </div>
+
+    <div class="col-md-24">
+        <form>
+            <div class="col-md-24">
+                <div class="col-md-8">
+                    @Html.Label("Nome")
+                    @Html.TextBoxFor(x => x.Nome, null, new { @class = "form-control", disabled = "disabled" })
+                </div>
+                <div class="col-md-4 col-md-offset-1">
+                    @Html.Label("Matricula")
+                    @Html.TextBoxFor(x => x.Matricula, null, new { @class = "form-control", disabled = "disabled" })
+                </div>
+
+                <div class="col-md-4 col-md-offset-1">
+                    @Html.Label("Situação")
+                    @Html.EnumDropDownListFor(x => x.Situacao, null, new { @class = "form-control", disabled = "disabled" })
+                </div>
+
+                <div class="col-md-5 col-md-offset-1">
+                    @Html.Label("CPF")
+                    @Html.TextBoxFor(x => x.Cpf, null, new { @class = "form-control", disabled = "disabled" })
+                </div>
+            </div>
+
+            <div class="col-md-24">
+                <div class="col-md-8">
+                    @Html.Label("Nome Mãe")
+                    @Html.TextBoxFor(x => x.NomeMae, null, new { @class = "form-control", disabled = "disabled" })
+                </div>
+                <div class="col-md-9 col-md-offset-1">
+                    @Html.Label("Curso")
+                    @Html.EnumDropDownListFor(x => x.Curso, null, new { @class = "form-control", disabled = "disabled" })
+                </div>
+
+                <div class="col-md-5 col-md-offset-1">
+                    @Html.Label("Data Nascimento")
+                    @Html.TextBoxFor(x => x.DataNascimento, null, new { @class = "form-control", disabled = "disabled" })
+                </div>
+            </div>
+
+            <div class="col-md-24">
+                @Html.Label("Observações")
+                @Html.TextAreaFor(x => x.Observacoes, new { @class = "form-control", disabled = "disabled"})
+            </div>
+        </form>
+    </div>
 </div>

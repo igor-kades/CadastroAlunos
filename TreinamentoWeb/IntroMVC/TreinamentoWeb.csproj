@@ -156,6 +156,8 @@
     </Compile>
     <Compile Include="Models\Aluno.cs" />
     <Compile Include="Models\Entidade.cs" />
+    <Compile Include="Models\Enums\Curso.cs" />
+    <Compile Include="Models\Enums\Situacao.cs" />
     <Compile Include="Models\JsonResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
