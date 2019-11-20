@@ -1,10 +1,52 @@
 ﻿<script src="~/Scripts/projeto/exercicio/exercicio.js"></script>
 <script>
     Europa.Controllers.Exercicio.UrlGetAluno = '@Url.Action("GetAluno", "Exercicio")';
+    Europa.Controllers.Exercicio.UrlCadastrarAluno = '@Url.Action("CadastrarAluno", "Exercicio")'
+    Europa.Controllers.Exercicio.UrlNextAluno = '@Url.Action("GetNextAluno", "Exercicio")'
+    Europa.Controllers.Exercicio.UrlPreviousAluno = '@Url.Action("GetPreviousAluno", "Exercicio")'
 </script>
 
 
+<div class="page-header">
+    <h2>Alunos - </h2>
+</div>
+
+<div class="col-md-24">
+    <div class="col-md-8">
+        <button class="btn btn-default" id="previousAluno" type="submit">
+            <i class="fa fa-arrow-left" aria-hidden="true"></i>
+            Anterior
+        </button>
+    </div>
+    <div class="col-md-5">
+        <button class="btn btn-danger" type="submit">
+            <i class="fa fa-trash-o" aria-hidden="true"></i>
+            Excluir
+        </button>
+    </div>
+    <div class="col-md-8">
+        <button class="btn btn-primary" type="submit" data-toggle="modal" data-target="#modalCadastroAluno">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+            Incluir
+        </button>
+    </div>
+    <div class="col-md-3">
+        <button class="btn btn-default pull-right" id="nextAluno" type="submit">
+            <i class="fa fa-arrow-right" aria-hidden="true"></i>
+            Seguinte
+        </button>
+    </div>
+</div>
+
+<div class="col-md-24">
+    &nbsp;
+</div>
+
+<div id="modal-aluno">
+    @Html.Partial("_ModalCadastroAluno")
+</div>
 
 <div id="form-aluno">
     @Html.Partial("_FormularioAluno")
 </div>
+

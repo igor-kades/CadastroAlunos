@@ -213,6 +213,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\_FormularioEntidade.cshtml" />
     <Content Include="Views\Exercicio\Index.cshtml" />
+    <Content Include="Views\Exercicio\_ModalCadastroAluno.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

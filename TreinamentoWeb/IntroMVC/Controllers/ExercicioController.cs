@@ -1,4 +1,5 @@
 ﻿using TreinamentoWeb.Models;
+using TreinamentoWeb.Models.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,20 +10,10 @@ namespace TreinamentoWeb.Controllers
 {
     public class ExercicioController : BaseController
     {
-        public static List<Aluno> Alunos { get; set; }
+        public static List<Aluno> Alunos { get; set; } = new List<Aluno>();
 
         public ExercicioController()
-        {
-            Alunos = new List<Aluno>();
-
-            var objeto = new Aluno
-            {
-                Id = 1,
-                Nome = "Igor Kades",
-                Cpf = "0000000000000"
-            };
-
-            Alunos.Add(objeto);
+        {            
         }
 
         public ActionResult Index()
@@ -32,11 +23,75 @@ namespace TreinamentoWeb.Controllers
 
 
         [HttpGet]
-        public JsonResult GetAluno(int id)
+        public JsonResult GetAluno(string mat)
         {
             // Obtendo a entidade da lista usando LINQ e Lambda
-            var aluno = Alunos.FirstOrDefault(x => x.Id == id);
+            var aluno = Alunos.FirstOrDefault(x => x.Matricula == mat);
 
+            var alunoHtml = RenderRazorViewToString("~/Views/Exercicio/_FormularioAluno.cshtml", aluno, false);
+
+            var json = new JsonResponse
+            {
+                Objeto = alunoHtml,
+                Sucesso = true
+            };
+
+            return Json(json, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult CadastrarAluno(string nome, string mat, int situacao, string cpf, string nomeMae, int curso, string dataNascimento, string obs)
+        {
+
+            var aluno = new Aluno
+            {
+                Nome = nome,
+                Matricula = mat,
+                SituacaoAluno = (Situacao)situacao,
+                Cpf = cpf,
+                NomeMae = nomeMae,
+                CursoAluno = (Curso)curso,
+                DataNascimento = DateTime.Parse(dataNascimento),
+                Observacoes = obs          
+            };
+            Alunos.Add(aluno);
+            var alunoHtml = RenderRazorViewToString("~/Views/Exercicio/_FormularioAluno.cshtml", aluno, false);            
+
+            var json = new JsonResponse
+            {
+                Objeto = alunoHtml,
+                Sucesso = true
+            };
+
+            return Json(json, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult GetNextAluno(string mat)
+        {
+            int index = Alunos.FindIndex(x => x.Matricula == mat);
+            var alunoHtml;
+
+            if(index != Alunos.Count)
+            {
+                var aluno = Alunos[index + 1];
+                alunoHtml = RenderRazorViewToString("~/Views/Exercicio/_FormularioAluno.cshtml", aluno, false);
+            }            
+
+            var json = new JsonResponse
+            {
+                Objeto = alunoHtml,
+                Sucesso = true
+            };
+
+            return Json(json, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult GetPreviousAluno(string mat)
+        {
+            int index = Alunos.FindIndex(x => x.Matricula == mat);
+            var aluno = Alunos[index-1];
             var alunoHtml = RenderRazorViewToString("~/Views/Exercicio/_FormularioAluno.cshtml", aluno, false);
 
             var json = new JsonResponse

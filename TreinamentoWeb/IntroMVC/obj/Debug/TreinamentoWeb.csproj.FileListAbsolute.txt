@@ -93,7 +93,7 @@ C:\Users\igor.kades\Documents\Codes\.Net Web\CadastroAlunos\CadastroAlunos\Trein
 C:\Users\igor.kades\Documents\Codes\.Net Web\CadastroAlunos\CadastroAlunos\TreinamentoWeb\IntroMVC\bin\pt-br\System.Web.WebPages.resources.dll
 C:\Users\igor.kades\Documents\Codes\.Net Web\CadastroAlunos\CadastroAlunos\TreinamentoWeb\IntroMVC\bin\pt-br\System.Web.WebPages.Deployment.resources.dll
 C:\Users\igor.kades\Documents\Codes\.Net Web\CadastroAlunos\CadastroAlunos\TreinamentoWeb\IntroMVC\bin\pt-br\System.Web.WebPages.Razor.resources.dll
-C:\Users\igor.kades\Documents\Codes\.Net Web\CadastroAlunos\CadastroAlunos\TreinamentoWeb\IntroMVC\obj\Debug\TreinamentoWeb.csprojAssemblyReference.cache
 C:\Users\igor.kades\Documents\Codes\.Net Web\CadastroAlunos\CadastroAlunos\TreinamentoWeb\IntroMVC\obj\Debug\TreinamentoWeb.csproj.CopyComplete
 C:\Users\igor.kades\Documents\Codes\.Net Web\CadastroAlunos\CadastroAlunos\TreinamentoWeb\IntroMVC\obj\Debug\TreinamentoWeb.dll
 C:\Users\igor.kades\Documents\Codes\.Net Web\CadastroAlunos\CadastroAlunos\TreinamentoWeb\IntroMVC\obj\Debug\TreinamentoWeb.pdb
+C:\Users\igor.kades\Documents\Codes\.Net Web\CadastroAlunos\CadastroAlunos\TreinamentoWeb\IntroMVC\obj\Debug\TreinamentoWeb.csprojAssemblyReference.cache

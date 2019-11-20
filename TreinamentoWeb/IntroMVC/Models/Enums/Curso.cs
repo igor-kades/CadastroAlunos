@@ -7,10 +7,10 @@ namespace TreinamentoWeb.Models.Enums
 {
     public enum Curso
     {
-        SistemasDeInformação = 1, 
-        CienciaDaComputacao = 2, 
-        Medicina = 3, 
-        Direito = 4, 
-        EngenhariaCivil = 5
+        Administração = 1, 
+        Biologia = 2,
+        Direito = 3,
+        Medicina = 4,
+        Psicologia = 5        
     }
 }
