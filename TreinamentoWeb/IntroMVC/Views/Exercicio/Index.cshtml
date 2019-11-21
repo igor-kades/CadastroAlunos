@@ -4,6 +4,7 @@
     Europa.Controllers.Exercicio.UrlCadastrarAluno = '@Url.Action("CadastrarAluno", "Exercicio")'
     Europa.Controllers.Exercicio.UrlNextAluno = '@Url.Action("GetNextAluno", "Exercicio")'
     Europa.Controllers.Exercicio.UrlPreviousAluno = '@Url.Action("GetPreviousAluno", "Exercicio")'
+    Europa.Controllers.Exercicio.UrlDeleteAluno = '@Url.Action("DeleteAluno", "Exercicio")'
 </script>
 
 
@@ -19,7 +20,7 @@
         </button>
     </div>
     <div class="col-md-5">
-        <button class="btn btn-danger" type="submit">
+        <button class="btn btn-danger" id="deleteAluno" type="submit">
             <i class="fa fa-trash-o" aria-hidden="true"></i>
             Excluir
         </button>
@@ -45,6 +46,7 @@
 <div id="modal-aluno">
     @Html.Partial("_ModalCadastroAluno")
     @Html.Partial("_ModalConfirmacaoCadastro")
+    @Html.Partial("_ModalDeleteMessage")
 </div>
 
 <div id="form-aluno">

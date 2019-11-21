@@ -51,6 +51,10 @@ $(function () {
     $("#previousAluno").click(function () {
         Europa.Controllers.Exercicio.PreviousAluno()
     })
+
+    $("#deleteAluno").click(function () {
+        Europa.Controllers.Exercicio.DeleteAluno()
+    })
 });
 
 Europa.Controllers.Exercicio.GetAluno = function () {
@@ -72,9 +76,10 @@ Europa.Controllers.Exercicio.CadastrarAluno = function () {
     }
 
     $.post(Europa.Controllers.Exercicio.UrlCadastrarAluno, data, function (res) {
+        console.log(res)
         $("#modalCadastroAluno").modal("hide")
         $("#modal-confirm .col-md-22").empty()
-        $("#modal-confirm .col-md-22").append(`O aluno <strong>${}</strong> foi salvo com sucesso.`)
+        $("#modal-confirm .col-md-22").append(`O aluno <strong>${res.Campos[0]}</strong> foi salvo com sucesso.`)
         $("#modal-confirm").modal('show')
         $("#form-aluno").html(res.Objeto);
     })
@@ -82,7 +87,6 @@ Europa.Controllers.Exercicio.CadastrarAluno = function () {
 
 Europa.Controllers.Exercicio.NextAluno = function () {
     $.get(Europa.Controllers.Exercicio.UrlNextAluno, { mat: $("#Matricula").val() }, function (res) {
-        console.log(res.Objeto)
         $("#form-aluno").html(res.Objeto);
     })
 }
@@ -90,6 +94,15 @@ Europa.Controllers.Exercicio.NextAluno = function () {
 Europa.Controllers.Exercicio.PreviousAluno = function () {
     $.get(Europa.Controllers.Exercicio.UrlPreviousAluno, { mat: $("#Matricula").val() } , function (res) {
         $("#form-aluno").html(res.Objeto);
+    })
+}
+
+Europa.Controllers.Exercicio.DeleteAluno = function () {
+    $.post(Europa.Controllers.Exercicio.UrlDeleteAluno, { mat: $("#Matricula").val() }, function (res) {
+        $("#modal-delete .col-md-22").empty()
+        $("#modal-delete .col-md-22").append(`O aluno <strong>${res.Campos[0]}</strong> foi deletado com sucesso.`)
+        $("#modal-delete").modal('show')
+        $("#form-aluno").html(res.Objeto)
     })
 }
 

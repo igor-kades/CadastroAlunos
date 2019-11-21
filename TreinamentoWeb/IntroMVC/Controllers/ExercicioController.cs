@@ -25,7 +25,6 @@ namespace TreinamentoWeb.Controllers
         [HttpGet]
         public JsonResult GetAluno(string mat)
         {
-            // Obtendo a entidade da lista usando LINQ e Lambda
             var aluno = Alunos.FirstOrDefault(x => x.Matricula == mat);
 
             var alunoHtml = RenderRazorViewToString("~/Views/Exercicio/_FormularioAluno.cshtml", aluno, false);
@@ -54,11 +53,13 @@ namespace TreinamentoWeb.Controllers
                 DataNascimento = DateTime.Parse(dataNascimento),
                 Observacoes = obs          
             };
+
             Alunos.Add(aluno);
             var alunoHtml = RenderRazorViewToString("~/Views/Exercicio/_FormularioAluno.cshtml", aluno, false);            
 
             var json = new JsonResponse
             {
+                Campos = new List<string>() { nome },
                 Objeto = alunoHtml,
                 Sucesso = true
             };
@@ -70,75 +71,80 @@ namespace TreinamentoWeb.Controllers
         public JsonResult GetNextAluno(string mat)
         {
             int index = Alunos.FindIndex(x => x.Matricula == mat);
-            
-            
-            
-            if(index < (Alunos.Count - 1))
+            Aluno aluno;
+
+            if (index < (Alunos.Count - 1))
             {
-                var aluno = Alunos[++index];
-                var alunoHtml = RenderRazorViewToString("~/Views/Exercicio/_FormularioAluno.cshtml", aluno, false);
-
-                var json = new JsonResponse
-                {
-                    Objeto = alunoHtml,
-                    Sucesso = true
-                };
-
-                return Json(json, JsonRequestBehavior.AllowGet);
-
-            } else
+                aluno = Alunos[++index];
+            }
+            else
             {
-                var alunoAtual = Alunos.FirstOrDefault(x => x.Matricula == mat);
-                var alunoHtml = RenderRazorViewToString("~/Views/Exercicio/_FormularioAluno.cshtml", alunoAtual, false);
-
-                var json = new JsonResponse
-                {
-                    Objeto = alunoHtml,
-                    Sucesso = true
-                };
-
-                return Json(json, JsonRequestBehavior.AllowGet);
+                aluno = Alunos.FirstOrDefault(x => x.Matricula == mat);
             }
 
-            
+            var alunoHtml = RenderRazorViewToString("~/Views/Exercicio/_FormularioAluno.cshtml", aluno, false);
 
-            
+            var json = new JsonResponse
+            {
+                Objeto = alunoHtml,
+                Sucesso = true
+            };
+
+            return Json(json, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
         public JsonResult GetPreviousAluno(string mat)
         {
             int index = Alunos.FindIndex(x => x.Matricula == mat);
-
-
+            Aluno aluno;
 
             if (index > 0)
             {
-                var aluno = Alunos[--index];
-                var alunoHtml = RenderRazorViewToString("~/Views/Exercicio/_FormularioAluno.cshtml", aluno, false);
-
-                var json = new JsonResponse
-                {
-                    Objeto = alunoHtml,
-                    Sucesso = true
-                };
-
-                return Json(json, JsonRequestBehavior.AllowGet);
-
+                aluno = Alunos[--index];
             }
             else
             {
-                var alunoAtual = Alunos.FirstOrDefault(x => x.Matricula == mat);
-                var alunoHtml = RenderRazorViewToString("~/Views/Exercicio/_FormularioAluno.cshtml", alunoAtual, false);
-
-                var json = new JsonResponse
-                {
-                    Objeto = alunoHtml,
-                    Sucesso = true
-                };
-
-                return Json(json, JsonRequestBehavior.AllowGet);
+                aluno = Alunos.FirstOrDefault(x => x.Matricula == mat);                
             }
+
+            var alunoHtml = RenderRazorViewToString("~/Views/Exercicio/_FormularioAluno.cshtml", aluno, false);
+
+            var json = new JsonResponse
+            {
+                Objeto = alunoHtml,
+                Sucesso = true
+            };
+            return Json(json, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult DeleteAluno(string mat)
+        {
+            int index = Alunos.FindIndex(x => x.Matricula == mat);
+            var alunoDelete = Alunos.FirstOrDefault(x => x.Matricula == mat);
+            Aluno aluno;
+            
+            if (index == 0)
+            {
+                aluno = Alunos[1];
+            }
+            else 
+            {
+                aluno = Alunos[--index];
+            }
+
+            var alunoHtml = RenderRazorViewToString("~/Views/Exercicio/_FormularioAluno.cshtml", aluno, false);
+            Alunos.RemoveAll(x => x.Matricula == mat);
+
+            var json = new JsonResponse
+            {
+                Campos = new List<string>() { alunoDelete.Nome },
+                Objeto = alunoHtml,
+                Sucesso = true
+            };
+
+            return Json(json, JsonRequestBehavior.AllowGet);
         }
     }
 }
