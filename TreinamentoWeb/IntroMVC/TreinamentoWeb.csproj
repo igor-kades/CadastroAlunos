@@ -214,6 +214,7 @@
     <Content Include="Views\Home\_FormularioEntidade.cshtml" />
     <Content Include="Views\Exercicio\Index.cshtml" />
     <Content Include="Views\Exercicio\_ModalCadastroAluno.cshtml" />
+    <Content Include="Views\Exercicio\_ModalConfirmacaoCadastro.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

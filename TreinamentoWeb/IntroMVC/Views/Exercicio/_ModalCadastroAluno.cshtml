@@ -13,42 +13,58 @@
                     <div class="row">
                         <div class="col-md-7 col-md-offset-1">
                             @Html.Label("Nome")
-                            @Html.TextBox("NomeAluno", null, new { @class = "form-control formItem", id="nomeAluno" })
+                            <div class="col-input">
+                                @Html.TextBox("NomeAluno", null, new { @class = "form-control formItem", id = "nomeAluno" })
+                            </div>                            
                         </div>
                         <div class="col-md-4 col-md-offset-1">
                             @Html.Label("Matricula")
-                            @Html.TextBox("MatriculaAluno", null, new { @class = "form-control formItem", id="matriculaAluno" })
+                            <div class="col-input">
+                                @Html.TextBox("MatriculaAluno", null, new { @class = "form-control formItem", id = "matriculaAluno" })
+                            </div>                            
                         </div>
                         <div class="col-md-4 col-md-offset-1">
                             @Html.Label("Situação")
-                            @Html.EnumDropDownListFor(x => x.SituacaoAluno, null, new { @class = "form-control formItem", id="situacaoAluno" })
+                            <div class="col-input">
+                                @Html.EnumDropDownListFor(x => x.SituacaoAluno, null, new { @class = "form-control formItem", id = "situacaoAluno" })
+                            </div>                            
                         </div>
                         <div class="col-md-4 col-md-offset-1">
                             @Html.Label("CPF")
-                            @Html.TextBox("CpfAluno", null, new { @class = "form-control formItem", id="cpfAluno" })
+                            <div class="col-input">
+                                @Html.TextBox("CpfAluno", null, new { @class = "form-control formItem", id = "cpfAluno" })
+                            </div>                            
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col-md-7 col-md-offset-1">
                             @Html.Label("Nome Mãe")
-                            @Html.TextBox("NomeMae", null, new { @class = "form-control formItem", id="nomeMae" })
+                            <div class="col-input">
+                                @Html.TextBox("NomeMae", null, new { @class = "form-control formItem", id = "nomeMae" })
+                            </div>                            
                         </div>
                         <div class="col-md-9 col-md-offset-1">
                             @Html.Label("Curso")
-                            @Html.EnumDropDownListFor(x => x.CursoAluno, null, new { @class = "form-control formItem", id="cursoAluno" })
+                            <div class="col-input">
+                                @Html.EnumDropDownListFor(x => x.CursoAluno, null, new { @class = "form-control formItem", id = "cursoAluno" })
+                            </div>                            
                         </div>
 
                         <div class="col-md-4 col-md-offset-1">
                             @Html.Label("Data Nascimento")
-                            @Html.TextBox("DataNascAluno", null, new { @class = "form-control formItem", id="dataNascAluno" })
+                            <div class="col-input">
+                                @Html.TextBox("DataNascAluno", null, new { @class = "form-control formItem", id = "dataNascAluno" })
+                            </div>                            
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col-md-22 col-md-offset-1">
                             @Html.Label("Observações")
-                            @Html.TextArea("Observacoes", new { @class = "form-control formItem", id="observacoes" })
+                            <div class="col-input">
+                                @Html.TextArea("Observacoes", new { @class = "form-control formItem", id = "observacoes" })
+                            </div>                            
                         </div>                        
                     </div>
                 </div>
