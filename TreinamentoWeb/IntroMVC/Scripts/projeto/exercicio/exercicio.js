@@ -59,6 +59,8 @@ $(function () {
 
 Europa.Controllers.Exercicio.GetAluno = function () {
     $.get(Europa.Controllers.Exercicio.UrlGetAluno, function (res) {
+        $(".page-title h2").empty()
+        $(".page-title h2").append("Alunos - " + res.Campos[0])
         $("#form-aluno").html(res.Objeto);
     });
 };
@@ -81,28 +83,44 @@ Europa.Controllers.Exercicio.CadastrarAluno = function () {
         $("#modal-confirm .col-md-22").empty()
         $("#modal-confirm .col-md-22").append(`O aluno <strong>${res.Campos[0]}</strong> foi salvo com sucesso.`)
         $("#modal-confirm").modal('show')
+
+        $(".page-title h2").empty()
+        $(".page-title h2").append("Alunos - " + res.Campos[0])
         $("#form-aluno").html(res.Objeto);
     })
 }
 
 Europa.Controllers.Exercicio.NextAluno = function () {
     $.get(Europa.Controllers.Exercicio.UrlNextAluno, { mat: $("#Matricula").val() }, function (res) {
+        $(".page-title h2").empty()
+        $(".page-title h2").append("Alunos - " + res.Campos[0])
         $("#form-aluno").html(res.Objeto);
     })
 }
 
 Europa.Controllers.Exercicio.PreviousAluno = function () {
-    $.get(Europa.Controllers.Exercicio.UrlPreviousAluno, { mat: $("#Matricula").val() } , function (res) {
+    $.get(Europa.Controllers.Exercicio.UrlPreviousAluno, { mat: $("#Matricula").val() }, function (res) {
+        $(".page-title h2").empty()
+        $(".page-title h2").append("Alunos - " + res.Campos[0])
         $("#form-aluno").html(res.Objeto);
     })
 }
 
 Europa.Controllers.Exercicio.DeleteAluno = function () {
     $.post(Europa.Controllers.Exercicio.UrlDeleteAluno, { mat: $("#Matricula").val() }, function (res) {
-        $("#modal-delete .col-md-22").empty()
-        $("#modal-delete .col-md-22").append(`O aluno <strong>${res.Campos[0]}</strong> foi deletado com sucesso.`)
-        $("#modal-delete").modal('show')
+        if (res.Sucesso == true) {
+            console.log("Delete")
+            $("#modal-delete .col-md-22").empty()
+            $("#modal-delete .col-md-22").append(`O aluno <strong>${res.Campos[0]}</strong> foi deletado com sucesso.`)
+            $(".page-title h2").append("Alunos - " + res.Campos[0])
+            $("#modal-delete").modal('show')
+        }        
+
+        $(".page-title h2").empty()
+        $(".page-title h2").append("Alunos - ")
         $("#form-aluno").html(res.Objeto)
+
+        console.log(res)
     })
 }
 
