@@ -29,54 +29,46 @@ namespace TreinamentoWeb.Controllers
 
             var alunoHtml = RenderRazorViewToString("~/Views/Exercicio/_FormularioAluno.cshtml", aluno, false);
 
-            if(aluno == null)
+            if (aluno == null)
             {
-                var json = new JsonResponse
-                {
-                    Campos = new List<string>() { " " },
-                    Objeto = alunoHtml,
-                    Sucesso = true
-                };
-                return Json(json, JsonRequestBehavior.AllowGet);
-            } else
-            {
-                var json = new JsonResponse
-                {
-                    Campos = new List<string>() { aluno.Nome },
-                    Objeto = alunoHtml,
-                    Sucesso = true
-                };
-                return Json(json, JsonRequestBehavior.AllowGet);
+                return ReturnJson(" ", alunoHtml, true);
+            } else {
+                return ReturnJson(aluno.Nome, alunoHtml, true);
             }
         }
 
         [HttpPost]
         public JsonResult CadastrarAluno(string nome, string mat, int situacao, string cpf, string nomeMae, int curso, string dataNascimento, string obs)
         {
+            Aluno aluno = null;
+            bool cadastrado;
 
-            var aluno = new Aluno
+            try
             {
-                Nome = nome,
-                Matricula = mat,
-                SituacaoAluno = (Situacao)situacao,
-                Cpf = cpf,
-                NomeMae = nomeMae,
-                CursoAluno = (Curso)curso,
-                DataNascimento = DateTime.Parse(dataNascimento),
-                Observacoes = obs          
-            };
-
-            Alunos.Add(aluno);
-            var alunoHtml = RenderRazorViewToString("~/Views/Exercicio/_FormularioAluno.cshtml", aluno, false);            
-
-            var json = new JsonResponse
+                aluno = new Aluno
+                {
+                    Nome = nome,
+                    Matricula = mat,
+                    SituacaoAluno = (Situacao)situacao,
+                    Cpf = cpf,
+                    NomeMae = nomeMae,
+                    CursoAluno = (Curso)curso,
+                    DataNascimento = DateTime.Parse(dataNascimento),
+                    Observacoes = obs
+                };
+                cadastrado = true;
+                Alunos.Add(aluno);
+            }
+            catch
             {
-                Campos = new List<string>() { nome },
-                Objeto = alunoHtml,
-                Sucesso = true
-            };
+                cadastrado = false;
+            }
+            
 
-            return Json(json, JsonRequestBehavior.AllowGet);
+            
+            var alunoHtml = RenderRazorViewToString("~/Views/Exercicio/_FormularioAluno.cshtml", aluno, false);
+
+            return ReturnJson(nome, alunoHtml, cadastrado);
         }
 
         [HttpGet]
@@ -98,23 +90,9 @@ namespace TreinamentoWeb.Controllers
 
             if (aluno == null)
             {
-                var json = new JsonResponse
-                {
-                    Campos = new List<string>() { " " },
-                    Objeto = alunoHtml,
-                    Sucesso = true
-                };
-                return Json(json, JsonRequestBehavior.AllowGet);
-            }
-            else
-            {
-                var json = new JsonResponse
-                {
-                    Campos = new List<string>() { aluno.Nome },
-                    Objeto = alunoHtml,
-                    Sucesso = true
-                };
-                return Json(json, JsonRequestBehavior.AllowGet);
+                return ReturnJson(" ", alunoHtml, true);
+            } else {
+                return ReturnJson(aluno.Nome, alunoHtml, true);
             }
         }
 
@@ -137,23 +115,9 @@ namespace TreinamentoWeb.Controllers
 
             if (aluno == null)
             {
-                var json = new JsonResponse
-                {
-                    Campos = new List<string>() { " " },
-                    Objeto = alunoHtml,
-                    Sucesso = true
-                };
-                return Json(json, JsonRequestBehavior.AllowGet);
-            }
-            else
-            {
-                var json = new JsonResponse
-                {
-                    Campos = new List<string>() { aluno.Nome },
-                    Objeto = alunoHtml,
-                    Sucesso = true
-                };
-                return Json(json, JsonRequestBehavior.AllowGet);
+                return ReturnJson(" ", alunoHtml, true);
+            } else {
+                return ReturnJson(aluno.Nome, alunoHtml, true);
             }
         }
 
@@ -190,21 +154,24 @@ namespace TreinamentoWeb.Controllers
                 {
                     aluno = Alunos[--index];
                     deletado = true;
-                }
-                
+                }                
             }
 
             var alunoHtml = RenderRazorViewToString("~/Views/Exercicio/_FormularioAluno.cshtml", aluno, false);
             Alunos.RemoveAll(x => x.Matricula == mat);
 
+            return ReturnJson(alunoDelete.Nome, alunoHtml, deletado);
+        }
+
+        public JsonResult ReturnJson(string nome, string alunoHtml, bool success)
+        {
             var json = new JsonResponse
             {
-                Campos = new List<string>() { alunoDelete.Nome },
+                Campos = new List<string>() { nome },
                 Objeto = alunoHtml,
-                Sucesso = deletado
+                Sucesso = success
             };
             return Json(json, JsonRequestBehavior.AllowGet);
-            
         }
     }
 }

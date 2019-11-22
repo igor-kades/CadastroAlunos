@@ -1,42 +1,37 @@
-﻿Europa.Controllers.Exercicio = {};
+﻿Europa.Controllers.Exercicio = {}
 
 $(function () {
-    Europa.Controllers.Exercicio.GetAluno();
-
+    Europa.Controllers.Exercicio.GetAluno()
     SetMask()
 
     $("#submit").click(function () {
         var fill = true
 
         $(".formItem").each(function () {
+            var element = $(this).parentsUntil('div.row', ".col-input")
 
             if ($(this).is("select")) {
                 if ($(this).find(":selected").text() == "") {
                     fill = false
-                    $(this).parentsUntil('div.row', ".col-input").addClass('has-error')
+                    element.addClass('has-error')
                 } else {
-                    if ($(this).parentsUntil('div.row', ".col-input").hasClass('has-error')) {
-                        $(this).parentsUntil('div.row', ".col-input").removeClass('has-error')
+                    if (element.hasClass('has-error')) {
+                        element.removeClass('has-error')
                     }
                 }
             } else if (EmptyElement($(this))) {
                 fill = false
-                $(this).parentsUntil('div.row', ".col-input").addClass('has-error')
+                element.addClass('has-error')
             } else {
-                if ($(this).parentsUntil('div.row', ".col-input").hasClass('has-error')) {
-                    $(this).parentsUntil('div.row', ".col-input").removeClass('has-error')
-                }
+                if (element.hasClass('has-error'))
+                    element.removeClass('has-error')
             }
         })
 
         if (!fill) {
-            if (!$("p").hasClass('text-danger')) {
-                $(".modal-body").append(`<div class="row alert-fill"><p class="text-danger col-md-offset-1"></p></div>`)
-                $(".text-danger").append(`Todos os campos devem ser preenchidos`)
-            }
+            setTextAlert()
         } else {
             Europa.Controllers.Exercicio.CadastrarAluno()
-            Clear()
         }
     })
 
@@ -55,15 +50,13 @@ $(function () {
     $("#deleteAluno").click(function () {
         Europa.Controllers.Exercicio.DeleteAluno()
     })
-});
+})
 
 Europa.Controllers.Exercicio.GetAluno = function () {
     $.get(Europa.Controllers.Exercicio.UrlGetAluno, function (res) {
-        $(".page-title h2").empty()
-        $(".page-title h2").append("Alunos - " + res.Campos[0])
-        $("#form-aluno").html(res.Objeto);
-    });
-};
+        setPageHeaderName(res.Objeto)
+    })
+}
 
 Europa.Controllers.Exercicio.CadastrarAluno = function () {
     data = {
@@ -78,50 +71,48 @@ Europa.Controllers.Exercicio.CadastrarAluno = function () {
     }
 
     $.post(Europa.Controllers.Exercicio.UrlCadastrarAluno, data, function (res) {
-        console.log(res)
-        $("#modalCadastroAluno").modal("hide")
-        $("#modal-confirm .col-md-22").empty()
-        $("#modal-confirm .col-md-22").append(`O aluno <strong>${res.Campos[0]}</strong> foi salvo com sucesso.`)
-        $("#modal-confirm").modal('show')
+        if (res.Sucesso) {
+            $("#modalCadastroAluno").modal("hide")
+            $("#modal-confirm .col-md-22").empty()
+            $("#modal-confirm .col-md-22").append(`O aluno <strong>${res.Campos[0]}</strong> foi salvo com sucesso.`)
+            $("#modal-confirm").modal('show')
 
-        $(".page-title h2").empty()
-        $(".page-title h2").append("Alunos - " + res.Campos[0])
-        $("#form-aluno").html(res.Objeto);
+            setPageHeaderName(res.Objeto)
+            Clear()
+        } else {
+            setTextAlertDataNasc()
+        }        
     })
 }
 
 Europa.Controllers.Exercicio.NextAluno = function () {
     $.get(Europa.Controllers.Exercicio.UrlNextAluno, { mat: $("#Matricula").val() }, function (res) {
-        $(".page-title h2").empty()
-        $(".page-title h2").append("Alunos - " + res.Campos[0])
-        $("#form-aluno").html(res.Objeto);
+        setPageHeaderName(res.Objeto)
     })
 }
 
 Europa.Controllers.Exercicio.PreviousAluno = function () {
     $.get(Europa.Controllers.Exercicio.UrlPreviousAluno, { mat: $("#Matricula").val() }, function (res) {
-        $(".page-title h2").empty()
-        $(".page-title h2").append("Alunos - " + res.Campos[0])
-        $("#form-aluno").html(res.Objeto);
+        setPageHeaderName(res.Objeto)
     })
 }
 
 Europa.Controllers.Exercicio.DeleteAluno = function () {
     $.post(Europa.Controllers.Exercicio.UrlDeleteAluno, { mat: $("#Matricula").val() }, function (res) {
+        setPageHeaderName(res.Objeto)
+
         if (res.Sucesso == true) {
-            console.log("Delete")
             $("#modal-delete .col-md-22").empty()
             $("#modal-delete .col-md-22").append(`O aluno <strong>${res.Campos[0]}</strong> foi deletado com sucesso.`)
-            $(".page-title h2").append("Alunos - " + res.Campos[0])
             $("#modal-delete").modal('show')
-        }        
-
-        $(".page-title h2").empty()
-        $(".page-title h2").append("Alunos - ")
-        $("#form-aluno").html(res.Objeto)
-
-        console.log(res)
+        }               
     })
+}
+
+function setPageHeaderName(obj) {
+    $("#form-aluno").html(obj)
+    $(".page-title h2").empty()
+    $(".page-title h2").append("Alunos - " + $("#Nome").val())
 }
 
 function SetMask() {
@@ -141,7 +132,6 @@ function EmptyElement(obj) {
 
 function Clear() {
     $("form").trigger("reset")
-
     $('.text-danger').parentsUntil(".modal-body", ".alert-fill").remove()
 
     $('.formItem').each(function () {
@@ -149,4 +139,18 @@ function Clear() {
             $(this).parentsUntil('div.row', ".col-input").removeClass('has-error')
         }
     })
+}
+
+function setTextAlert() {
+    $('.text-danger').parentsUntil(".modal-body", ".alert-fill").remove()
+    $(".modal-body").append(`<div class="row alert-fill"><p class="text-danger col-md-offset-1"></p></div>`)
+    $(".text-danger").append(`Todos os campos devem ser preenchidos`)
+}
+
+function setTextAlertDataNasc() {
+    $('.text-danger').parentsUntil(".modal-body", ".alert-fill").remove()
+    $(".modal-body").append(`<div class="row alert-fill"><p class="text-danger col-md-offset-1"></p></div>`)
+    $(".text-danger").append(`Data inválida`)
+
+    $("#dataNascAluno").parentsUntil('div.row', ".col-input").addClass('has-error')
 }
